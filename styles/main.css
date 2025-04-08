@@ -1,0 +1,161 @@
+@import url(./global.css);
+@import url(./classes.css);
+
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+    min-height: 100vh;
+    height: 100%;
+}
+
+#mainContainer {
+    flex-grow: 1;
+}
+
+#firstScreen {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+#secondScreen {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity .3s ease-in-out;
+    background-color: #fff;
+    z-index: 10;
+}
+
+#calculatorContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#circularElapsedTimeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+}
+
+.tabs {
+    display: flex;
+    position: relative;
+    align-items: center;
+    background: var(--gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.tab-bg {
+    position: absolute;
+    height: 100%;
+    transition: transform .3s;
+    transition-timing-function: ease-in-out;
+}
+
+.tab-bg-element {
+    display: flex;
+    height: 100%;
+    background: var(--gray-100);
+    border-radius: 12px;
+    transition: transform .1s, border-radius .1s, background-color .1s;
+    transition-timing-function: ease-in-out;
+    z-index: 1;
+}
+
+.tabs.elements-5 .tab-bg {
+    width: calc(100% / 5);
+}
+
+.tabs.elements-2 .tab-bg {
+    width: 50%;
+}
+
+.tab {
+    font-size: 20px;
+    font-weight: 500;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    transition: color .3s ease-in-out;
+    z-index: 2;
+}
+
+.tab.active {
+    color: #fff;
+}
+
+.tab.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+input[type="number"] {
+    width: 60px;
+}
+
+.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#circularTimerContainer {
+    margin: 0 auto;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#circularTimerSVG {
+    width: 360px;
+    height: 360px;
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+    preserveAspectRatio: xMidYMid meet;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 10;
+}
+
+.circle-progress {
+    fill: none;
+    stroke: var(--gray-100);
+    stroke-width: 21;
+    stroke-linecap: round;
+    transform: rotate(-86deg);
+    transform-origin: 50% 50%;
+    transition: all .3s ease-in-out;
+}
+
+.layer-marker {
+    stroke: var(--gray-100);
+    stroke-width: 2;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.circular-timer-text {
+    font-size: 57px;
+    line-height: 64px;
+    font-weight: 400;
+    fill: var(--gray-100);
+    text-anchor: middle;
+    dominant-baseline: middle;
+}

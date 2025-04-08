@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="eng">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Psychic Layer Cleansing Calculator</title>
+  <link rel="stylesheet" href="./styles/main.css">
+  <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+</head>
+
+<body>
+  <div class="container">
+    <div id="firstScreen">
+      <div class="flex flex-col gap-12 p-32-16">
+        <div class="flex w-full justify-content-between">
+          <!-- Logo -->
+          <span class="flex gap-8 items-center">
+            <img src="./assets/icons/icon_water.svg" alt="water icon">
+            Water standing
+          </span>
+
+          <!-- Lang -->
+          <select id="langSelect" class="b-r-12">
+            <option value="en">🇺🇸 Eng</option>
+            <option value="uk">🇺🇦 Ukr</option>
+            <option value="ru">🇷🇺 Rus</option>
+          </select>
+        </div>
+
+        <h2 id="headingText" class="font-size-32">{{ header }}</h2>
+      </div>
+
+      <div id="mainContainer">
+        <!-- First screen -->
+        <div id="calculatorContainer">
+
+          <div class="flex flex-col gap-12 p-16">
+            <span id="tempLabelContent">{{ tempLabel }}</span>
+
+            <div class="flex">
+              <input type="number" id="tempNumber" step="0.01" class="flex-grow font-size-32 font-w-600">
+
+              <div class="tabs elements-2" id="temperaturesTabs">
+                <div class="tab active" data-layers="C" data-transform="0">°C</div>
+                <div class="tab" data-layers="F" data-transform="100">°F</div>
+                <div class="tab-bg">
+                  <div class="tab-bg-element"></div>
+                </div>
+              </div>
+              <!-- Hidden select -->
+              <select id="tempUnit" class="hidden">
+                <option value="C" selected>°C</option>
+                <option value="F">°F</option>
+              </select>
+            </div>
+
+            <input type="range" id="tempInput" step="0.1" class="m-y-16">
+          </div>
+
+          <div class="flex flex-col gap-12 p-16">
+            <span id="chooseLayers">{{ Choose layers }}</span>
+
+            <div class="tabs elements-5" id="layersTabs">
+              <div class="tab active" data-layers="1" data-transform="0">1</div>
+              <div class="tab" data-layers="2" data-transform="100">2</div>
+              <div class="tab" data-layers="3" data-transform="200">3</div>
+              <div class="tab" data-layers="4" data-transform="300">4</div>
+              <div class="tab" data-layers="5" data-transform="400">5</div>
+              <div class="tab-bg">
+                <div class="tab-bg-element"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-grow flex-col p-24-16 gap-32 justify-content-end">
+            <div class="flex flex-col gap-12">
+              <span id="timeDuration">{{ timeDuration }}</span>
+              <div>
+                <span id="timeOutput" class="font-size-48 font-w-600">{{ timeOutput }}</span>
+                <span id="minutes" class="font-size-16 font-w-600">{{ minutes }}</span>
+              </div>
+            </div>
+
+            <button id="startTimerButton"
+              class="flex gap-12 justify-content-center bg-gray-100 text-white font-size-16 font-w-600 p-20 b-r-16">
+              <img src="./assets/icons/play.svg" alt="start timer">
+              <span id="startTimerLabel">
+                {{ startTimer }}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second screen -->
+    <div id="secondScreen" class="hide">
+      <div class="flex p-32-16 gap-16">
+        <div class="flex flex-col flex-grow items-center justify-content-center bg-gray-200 b-r-16 p-24-16 gap-8">
+          <span id="waterTemperatureLabel">{{ Water temperature }}</span>
+          <span id="waterTemperatureValue" class="font-size-20">{{ Water temperature value }}</span>
+        </div>
+        <div class="flex flex-col flex-grow items-center justify-content-center bg-gray-200 b-r-16 p-24-16 gap-8">
+          <span id="totalTimeLabel">{{ Total time }}</span>
+          <span id="totalTimeValue" class="font-size-20 font-w-600">{{ Total time value }}</span>
+        </div>
+      </div>
+
+      <div id="circularTimerContainer" class="flex-grow justify-content-center">
+        <svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg"
+          id="circularTimerSVG">
+
+          <path d="M180 45L180 27" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M188.829 45.2891L190.007 27.3276" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M197.621 46.155L199.971 28.309" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M206.337 47.594L209.849 29.9399" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M214.941 49.6L219.599 32.2133" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M223.394 52.1645L229.18 35.1197" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M231.662 55.2763L238.551 38.6464" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M239.709 58.9222L247.67 42.7785" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M247.5 63.0866L256.5 47.4981" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M255.002 67.7516L265.002 52.7852" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M262.183 72.8973L273.14 58.6169" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M269.012 78.5016L280.88 64.9685" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M275.459 84.5406L288.187 71.8126" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M281.498 90.9883L295.032 79.1201" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M287.103 97.8172L301.383 86.8595" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M292.248 104.998L307.215 94.9978" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M296.913 112.5L312.502 103.5" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M301.078 120.291L317.222 112.33" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M304.724 128.338L321.354 121.449" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M307.836 136.606L324.88 130.82" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M310.4 145.059L327.787 140.401" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M312.406 153.663L330.06 150.151" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M313.845 162.379L331.691 160.029" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M314.711 171.171L332.672 169.993" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M315 180H333" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M314.711 188.829L332.672 190.007" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M313.845 197.621L331.691 199.971" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M312.406 206.337L330.06 209.849" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M310.4 214.941L327.787 219.599" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M307.836 223.394L324.88 229.18" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M304.724 231.662L321.354 238.551" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M301.078 239.709L317.222 247.67" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M296.913 247.5L312.502 256.5" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M292.248 255.002L307.215 265.002" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M287.103 262.183L301.383 273.14" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M281.498 269.012L295.032 280.88" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M275.459 275.459L288.187 288.187" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M269.012 281.498L280.88 295.032" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M262.183 287.103L273.14 301.383" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M255.002 292.248L265.002 307.215" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M247.5 296.913L256.5 312.502" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M239.709 301.078L247.67 317.222" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M231.662 304.724L238.551 321.354" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M223.394 307.836L229.18 324.88" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M214.941 310.4L219.599 327.787" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M206.337 312.406L209.849 330.06" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M197.621 313.845L199.971 331.691" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M188.829 314.711L190.007 332.672" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M180 315V333" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M171.171 314.711L169.993 332.672" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M162.379 313.845L160.029 331.691" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M153.663 312.406L150.151 330.06" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M145.059 310.4L140.401 327.787" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M136.606 307.836L130.82 324.88" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M128.338 304.724L121.449 321.354" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M120.291 301.078L112.33 317.222" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M112.5 296.913L103.5 312.502" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M104.998 292.248L94.9978 307.215" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M97.8172 287.103L86.8596 301.383" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M90.9883 281.498L79.1201 295.032" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M84.5406 275.459L71.8126 288.187" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M78.5016 269.012L64.9685 280.88" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M72.8973 262.183L58.6169 273.14" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M67.7516 255.002L52.7851 265.002" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M63.0866 247.5L47.4982 256.5" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M58.9222 239.709L42.7785 247.67" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M55.2763 231.662L38.6465 238.551" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M52.1644 223.394L35.1197 229.18" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M49.6 214.941L32.2133 219.599" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M47.594 206.337L29.9398 209.849" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M46.1549 197.621L28.3089 199.971" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M45.2891 188.829L27.3276 190.007" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M45 180H27" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M45.2891 171.171L27.3276 169.993" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M46.1549 162.379L28.3089 160.029" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M47.594 153.663L29.9398 150.151" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M49.6 145.059L32.2133 140.401" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M52.1644 136.606L35.1197 130.82" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M55.2763 128.338L38.6465 121.449" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M58.9222 120.291L42.7785 112.33" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M63.0866 112.5L47.4982 103.5" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M67.7516 104.998L52.7851 94.9978" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M72.8973 97.8172L58.6169 86.8595" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M78.5016 90.9883L64.9685 79.1201" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M84.5406 84.5406L71.8126 71.8126" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M90.9883 78.5016L79.1201 64.9685" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M97.8172 72.8973L86.8596 58.6169" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M104.998 67.7516L94.9978 52.7852" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M112.5 63.0866L103.5 47.4981" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M120.291 58.9222L112.33 42.7785" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M128.338 55.2763L121.449 38.6464" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M136.606 52.1645L130.82 35.1197" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M145.059 49.6L140.401 32.2133" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M153.663 47.594L150.151 29.9399" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M162.379 46.155L160.029 28.309" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+          <path d="M171.171 45.2891L169.993 27.3276" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
+
+          <circle id="circularProgress" class="circle-progress" cx="180" cy="180" r="145" stroke-dasharray="911.06"
+            stroke-dashoffset="911.06" />
+        </svg>
+
+        <div id="circularElapsedTimeContainer">
+          <span id="circularElapsedTime" class="circular-timer-text">00:00</span>
+
+          <div class="flex flex-col gap-8 items-center justify-content-center">
+            <span class="font-size-16 font-w-600" id="layersCleanedLabel">{{ Layers cleaned }}</span>
+
+            <div class="flex items-center justify-content-center bg-gray-200 b-r-12 p-12 font-size-20 font-w-600"
+              style="width: 100px;" id="layersCleaned">
+              {{ 0 / 1 }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-16 justify-content-end p-24-16">
+        <button class="flex gap-12 justify-content-center bg-gray-100 text-white font-size-16 font-w-600 p-20 b-r-16"
+          id="pauseResumeButton">
+          <img id="resumeIcon" src="./assets/icons/play.svg" alt="start timer" class="hidden">
+          <img id="pauseIcon" src="./assets/icons/pause.svg" alt="pause timer">
+
+          <span id="pauseResumeButtonLabel">
+            {{ startTimer | pauseTimer | reset }}
+          </span>
+        </button>
+
+        <button class="flex gap-12 justify-content-center bg-white font-size-16 font-w-600 p-20 b-r-16 border-gray-200"
+          id="resetButton">
+          <span id="resetButtonLabel">
+            {{ cancel }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/main.js" defer></script>
+</body>
+
+</html>

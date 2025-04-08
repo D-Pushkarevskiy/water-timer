@@ -1,0 +1,140 @@
+@font-face {
+    font-family: 'manrope';
+    src: url('../assets/fonts/Manrope/Manrope-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--gray-100);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+:root {
+    --gray-100: #262626;
+    --gray-200: #F0F3F7;
+}
+
+body {
+    font-family: manrope, sans-serif;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--gray-200);
+    background-image: url("../assets/icons/arrow.svg");
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 8px);
+    background-position-y: 50%;
+    padding: 12px 24px 12px 12px;
+    border: none;
+    outline: none;
+}
+
+input[type=number] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: linear-gradient(to right, var(--gray-100) 50%, var(--gray-200) 50%);
+    border-radius: 22px;
+    height: 22px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    position: relative;
+    outline: 1px solid var(--gray-200);
+    border: 12px solid #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-top: -2px;
+    background: #000;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px #00000014;
+}
