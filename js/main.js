@@ -1,4 +1,3 @@
-
 /* ---------- Translations ---------- */
 const translations = {
     en: {
@@ -242,7 +241,7 @@ function updateDisplays() {
 }
 function updateSlider() {
     let value = (tempInput.value - tempInput.min) / (tempInput.max - tempInput.min) * 100;
-    tempInput.style.background = `linear-gradient(to right, var(--gray-100) ${value}%, var(--gray-200) ${value}%)`;
+    tempInput.style.background = `linear-gradient(to right, var(--primary) ${value}%, var(--light) ${value}%)`;
 }
 function updateSummary() {
     const celsius = parseFloat(internalTempC.toFixed(1));
@@ -302,7 +301,7 @@ function createCircularLayerMarkers() {
     for (let i = 0; i < circularTimerSVG.childNodes.length; i++) {
         if (circularTimerSVG.childNodes[i].nodeName === 'path') {
             paths.push(circularTimerSVG.childNodes[i])
-            circularTimerSVG.childNodes[i].setAttribute('stroke', '#E4E4E4');
+            circularTimerSVG.childNodes[i].setAttribute('stroke', '#C1CAFD');
             circularTimerSVG.childNodes[i].setAttribute('stroke-width', '1.8');
         }
     }
@@ -313,7 +312,7 @@ function createCircularLayerMarkers() {
         const index = Math.round(i * step);
 
         if (index < paths.length) {
-            paths[index].setAttribute('stroke', 'var(--gray-100)');
+            paths[index].setAttribute('stroke', '#a1afff');
             paths[index].setAttribute('stroke-width', '4');
         }
     }
@@ -462,6 +461,61 @@ pauseResumeButton.addEventListener('click', () => {
 });
 resetButton.addEventListener('click', resetTimer);
 
+
+/* ---------- Three.js Water Blob Animation with Shader ---------- */
+function initWaterBlob() {
+    const container = document.getElementById('timerBackgroundAnimation');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(80, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const vertexShader = `
+        uniform float time;
+        varying vec3 vNormal;
+        void main() {
+            vNormal = normal;
+            vec3 newPosition = position + normal * sin(position.y * 10.0 + time) * 0.1;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+        }
+    `;
+
+    const fragmentShader = `
+        varying vec3 vNormal;
+        void main() {
+            float intensity = pow(0.5 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 2.0);
+            gl_FragColor = vec4(0.0, 0.1, 1, 1) * intensity;
+        }
+    `;
+
+    const material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms: {
+            time: { value: 0 }
+        }
+    });
+
+    const geometry = new THREE.SphereGeometry(1.8, 32, 32);
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+
+    const light = new THREE.PointLight(0xffffff, 1, 100);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+
+    camera.position.z = 3;
+
+    function animate() {
+        requestAnimationFrame(animate);
+        material.uniforms.time.value += 0.03;
+        renderer.render(scene, camera);
+    }
+
+    animate();
+}
+
 /* ---------- Init ---------- */
 updateDisplays();
 updateTime();
@@ -469,3 +523,4 @@ updateTranslations();
 updateSlider();
 updateSummary();
 updateCleanedLayers();
+initWaterBlob();

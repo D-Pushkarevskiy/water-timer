@@ -45,13 +45,39 @@
     flex-direction: column;
     gap: 10px;
     position: absolute;
+    z-index: 2;
+}
+
+#timerBackgroundAnimation {
+    display: flex;
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    z-index: 1;
+}
+
+#circularTimerContainer {
+    margin: 0 auto;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#circularTimerSVG {
+    width: 360px;
+    height: 360px;
+    overflow: hidden;
+    display: block;
+    margin: 0 auto;
+    preserveAspectRatio: xMidYMid meet;
 }
 
 .tabs {
     display: flex;
     position: relative;
     align-items: center;
-    background: var(--gray-200);
+    background: var(--light);
     border-radius: 12px;
     overflow: hidden;
 }
@@ -66,7 +92,7 @@
 .tab-bg-element {
     display: flex;
     height: 100%;
-    background: var(--gray-100);
+    background: var(--primary);
     border-radius: 12px;
     transition: transform .1s, border-radius .1s, background-color .1s;
     transition-timing-function: ease-in-out;
@@ -111,23 +137,6 @@ input[type="number"] {
     pointer-events: none;
 }
 
-#circularTimerContainer {
-    margin: 0 auto;
-    width: 360px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#circularTimerSVG {
-    width: 360px;
-    height: 360px;
-    overflow: hidden;
-    display: block;
-    margin: 0 auto;
-    preserveAspectRatio: xMidYMid meet;
-}
-
 .circle-bg {
     fill: none;
     stroke: #e0e0e0;
@@ -136,16 +145,15 @@ input[type="number"] {
 
 .circle-progress {
     fill: none;
-    stroke: var(--gray-100);
-    stroke-width: 21;
-    stroke-linecap: round;
-    transform: rotate(-86deg);
+    stroke: #fff;
+    stroke-width: 26;
+    transform: rotate(-89deg);
     transform-origin: 50% 50%;
     transition: all .3s ease-in-out;
 }
 
 .layer-marker {
-    stroke: var(--gray-100);
+    stroke: var(--primary);
     stroke-width: 2;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
@@ -155,7 +163,7 @@ input[type="number"] {
     font-size: 57px;
     line-height: 64px;
     font-weight: 400;
-    fill: var(--gray-100);
+    color: #fff;
     text-anchor: middle;
     dominant-baseline: middle;
 }

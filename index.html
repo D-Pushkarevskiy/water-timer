@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="./styles/main.css">
   <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
   <link rel="preload" href="./assets/fonts/Manrope/Manrope-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 </head>
 
 <body>
@@ -18,7 +19,12 @@
         <div class="flex w-full justify-content-between">
           <!-- Logo -->
           <span class="flex gap-8 items-center">
-            <img src="./assets/icons/icon_water.svg" alt="water icon" width="24" height="24">
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M3.75736 4.42184L8 0.179199L12.2427 4.42184C14.5858 6.76499 14.5858 10.564 12.2427 12.9071C9.89947 15.2503 6.10051 15.2503 3.75736 12.9071C1.41421 10.564 1.41421 6.76499 3.75736 4.42184Z"
+                fill="var(--primary)" />
+            </svg>
+
             Water standing
           </span>
 
@@ -85,7 +91,7 @@
             </div>
 
             <button id="startTimerButton"
-              class="flex gap-12 justify-content-center bg-gray-100 text-white font-size-16 font-w-600 p-20 b-r-16">
+              class="flex gap-12 justify-content-center bg-primary text-white font-size-16 font-w-600 p-20 b-r-16">
               <img src="./assets/icons/play.svg" alt="start timer" width="24" height="24">
               <span id="startTimerLabel">
                 {{ startTimer }}
@@ -99,11 +105,11 @@
     <!-- Second screen -->
     <div id="secondScreen" class="hide">
       <div class="flex p-32-16 gap-16">
-        <div class="flex flex-col flex-grow items-center justify-content-center bg-gray-200 b-r-16 p-24-16 gap-8">
+        <div class="flex flex-col flex-grow items-center justify-content-center bg-light b-r-16 p-24-16 gap-8">
           <span id="waterTemperatureLabel">{{ Water temperature }}</span>
           <span id="waterTemperatureValue" class="font-size-20">{{ Water temperature value }}</span>
         </div>
-        <div class="flex flex-col flex-grow items-center justify-content-center bg-gray-200 b-r-16 p-24-16 gap-8">
+        <div class="flex flex-col flex-grow items-center justify-content-center bg-light b-r-16 p-24-16 gap-8">
           <span id="totalTimeLabel">{{ Total time }}</span>
           <span id="totalTimeValue" class="font-size-20 font-w-600">{{ Total time value }}</span>
         </div>
@@ -217,18 +223,20 @@
           <span id="circularElapsedTime" class="circular-timer-text" aria-live="polite">00:00</span>
 
           <div class="flex flex-col gap-8 items-center justify-content-center">
-            <span class="font-size-16 font-w-600" id="layersCleanedLabel">{{ Layers cleaned }}</span>
+            <span class="font-size-16 font-w-600 text-white" id="layersCleanedLabel">{{ Layers cleaned }}</span>
 
-            <div class="flex items-center justify-content-center bg-gray-200 b-r-12 p-12 font-size-20 font-w-600"
+            <div class="flex items-center justify-content-center bg-white primary b-r-12 p-12 font-size-20 font-w-600"
               style="width: 100px;" id="layersCleaned" aria-live="polite">
               {{ 0 / 1 }}
             </div>
           </div>
         </div>
+
+        <div id="timerBackgroundAnimation"></div>
       </div>
 
       <div class="flex flex-col gap-16 justify-content-end p-24-16">
-        <button class="flex gap-12 justify-content-center bg-gray-100 text-white font-size-16 font-w-600 p-20 b-r-16"
+        <button class="flex gap-12 justify-content-center bg-primary text-white font-size-16 font-w-600 p-20 b-r-16"
           id="pauseResumeButton">
           <img id="resumeIcon" src="./assets/icons/play.svg" alt="resume timer" width="24" height="24" class="hidden">
           <img id="pauseIcon" src="./assets/icons/pause.svg" alt="pause timer" width="24" height="24">
@@ -238,7 +246,7 @@
           </span>
         </button>
 
-        <button class="flex gap-12 justify-content-center bg-white font-size-16 font-w-600 p-20 b-r-16 border-gray-200"
+        <button class="flex gap-12 justify-content-center bg-white font-size-16 font-w-600 p-20 b-r-16 border-primary"
           id="resetButton">
           <span id="resetButtonLabel">
             {{ cancel }}
