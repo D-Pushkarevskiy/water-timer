@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Calculate the optimal time for psychic layer cleansing based on water temperature">
   <title>Psychic Layer Cleansing Calculator</title>
   <link rel="stylesheet" href="./styles/main.css">
-  <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+  <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
+  <link rel="preload" href="./assets/fonts/Manrope/Manrope-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
 </head>
 
 <body>
@@ -16,57 +18,57 @@
         <div class="flex w-full justify-content-between">
           <!-- Logo -->
           <span class="flex gap-8 items-center">
-            <img src="./assets/icons/icon_water.svg" alt="water icon">
+            <img src="./assets/icons/icon_water.svg" alt="water icon" width="24" height="24">
             Water standing
           </span>
 
           <!-- Lang -->
-          <select id="langSelect" class="b-r-12">
+          <select id="langSelect" class="b-r-12" aria-label="Select language">
             <option value="en">🇺🇸 Eng</option>
             <option value="uk">🇺🇦 Ukr</option>
             <option value="ru">🇷🇺 Rus</option>
           </select>
         </div>
 
-        <h2 id="headingText" class="font-size-32">{{ header }}</h2>
+        <h1 id="headingText" class="font-size-32">{{ header }}</h1>
       </div>
 
       <div id="mainContainer">
         <!-- First screen -->
         <div id="calculatorContainer">
-
           <div class="flex flex-col gap-12 p-16">
-            <span id="tempLabelContent">{{ tempLabel }}</span>
+            <label id="tempLabelContent" for="tempNumber">{{ tempLabel }}</label>
 
             <div class="flex">
-              <input type="number" id="tempNumber" step="0.01" class="flex-grow font-size-32 font-w-600">
+              <input type="number" id="tempNumber" step="0.01" class="flex-grow font-size-32 font-w-600"
+                aria-labelledby="tempLabelContent">
 
-              <div class="tabs elements-2" id="temperaturesTabs">
-                <div class="tab active" data-layers="C" data-transform="0">°C</div>
-                <div class="tab" data-layers="F" data-transform="100">°F</div>
+              <div class="tabs elements-2" id="temperaturesTabs" role="radiogroup" aria-labelledby="tempLabelContent">
+                <div class="tab active" role="radio" aria-checked="true" data-layers="C" data-transform="0">°C</div>
+                <div class="tab" role="radio" aria-checked="false" data-layers="F" data-transform="100">°F</div>
                 <div class="tab-bg">
                   <div class="tab-bg-element"></div>
                 </div>
               </div>
               <!-- Hidden select -->
-              <select id="tempUnit" class="hidden">
+              <select id="tempUnit" class="hidden" aria-hidden="true">
                 <option value="C" selected>°C</option>
                 <option value="F">°F</option>
               </select>
             </div>
 
-            <input type="range" id="tempInput" step="0.1" class="m-y-16">
+            <input type="range" id="tempInput" step="0.1" class="m-y-16" aria-labelledby="tempLabelContent">
           </div>
 
           <div class="flex flex-col gap-12 p-16">
             <span id="chooseLayers">{{ Choose layers }}</span>
 
-            <div class="tabs elements-5" id="layersTabs">
-              <div class="tab active" data-layers="1" data-transform="0">1</div>
-              <div class="tab" data-layers="2" data-transform="100">2</div>
-              <div class="tab" data-layers="3" data-transform="200">3</div>
-              <div class="tab" data-layers="4" data-transform="300">4</div>
-              <div class="tab" data-layers="5" data-transform="400">5</div>
+            <div class="tabs elements-5" id="layersTabs" role="radiogroup" aria-labelledby="chooseLayers">
+              <div class="tab active" role="radio" aria-checked="true" data-layers="1" data-transform="0">1</div>
+              <div class="tab" role="radio" aria-checked="false" data-layers="2" data-transform="100">2</div>
+              <div class="tab" role="radio" aria-checked="false" data-layers="3" data-transform="200">3</div>
+              <div class="tab" role="radio" aria-checked="false" data-layers="4" data-transform="300">4</div>
+              <div class="tab" role="radio" aria-checked="false" data-layers="5" data-transform="400">5</div>
               <div class="tab-bg">
                 <div class="tab-bg-element"></div>
               </div>
@@ -84,7 +86,7 @@
 
             <button id="startTimerButton"
               class="flex gap-12 justify-content-center bg-gray-100 text-white font-size-16 font-w-600 p-20 b-r-16">
-              <img src="./assets/icons/play.svg" alt="start timer">
+              <img src="./assets/icons/play.svg" alt="start timer" width="24" height="24">
               <span id="startTimerLabel">
                 {{ startTimer }}
               </span>
@@ -109,8 +111,7 @@
 
       <div id="circularTimerContainer" class="flex-grow justify-content-center">
         <svg width="360" height="360" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg"
-          id="circularTimerSVG">
-
+          id="circularTimerSVG" aria-hidden="true">
           <path d="M180 45L180 27" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
           <path d="M188.829 45.2891L190.007 27.3276" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
           <path d="M197.621 46.155L199.971 28.309" stroke="#E4E4E4" stroke-width="1.8" stroke-linecap="round" />
@@ -213,13 +214,13 @@
         </svg>
 
         <div id="circularElapsedTimeContainer">
-          <span id="circularElapsedTime" class="circular-timer-text">00:00</span>
+          <span id="circularElapsedTime" class="circular-timer-text" aria-live="polite">00:00</span>
 
           <div class="flex flex-col gap-8 items-center justify-content-center">
             <span class="font-size-16 font-w-600" id="layersCleanedLabel">{{ Layers cleaned }}</span>
 
             <div class="flex items-center justify-content-center bg-gray-200 b-r-12 p-12 font-size-20 font-w-600"
-              style="width: 100px;" id="layersCleaned">
+              style="width: 100px;" id="layersCleaned" aria-live="polite">
               {{ 0 / 1 }}
             </div>
           </div>
@@ -229,8 +230,8 @@
       <div class="flex flex-col gap-16 justify-content-end p-24-16">
         <button class="flex gap-12 justify-content-center bg-gray-100 text-white font-size-16 font-w-600 p-20 b-r-16"
           id="pauseResumeButton">
-          <img id="resumeIcon" src="./assets/icons/play.svg" alt="start timer" class="hidden">
-          <img id="pauseIcon" src="./assets/icons/pause.svg" alt="pause timer">
+          <img id="resumeIcon" src="./assets/icons/play.svg" alt="resume timer" width="24" height="24" class="hidden">
+          <img id="pauseIcon" src="./assets/icons/pause.svg" alt="pause timer" width="24" height="24">
 
           <span id="pauseResumeButtonLabel">
             {{ startTimer | pauseTimer | reset }}
