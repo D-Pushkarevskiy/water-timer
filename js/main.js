@@ -153,7 +153,9 @@ let cleanedLayersCounter = 0
 function playLayerSound() {
     try {
         layerSound.currentTime = 0;
-        layerSound.play();
+        layerSound.play().then().catch((err) => {
+            console.warn(err);
+        });
     } catch (e) {
         console.warn(e)
     }
@@ -164,7 +166,9 @@ function playLayerSound() {
 function playFinalSound() {
     try {
         finalSound.currentTime = 0;
-        finalSound.play();
+        finalSound.play().then().catch((err) => {
+            console.warn(err);
+        });
     } catch (e) {
         console.warn(e)
     }
@@ -312,7 +316,7 @@ function createCircularLayerMarkers() {
         const index = Math.round(i * step);
 
         if (index < paths.length) {
-            paths[index].setAttribute('stroke', '#a1afff');
+            paths[index].setAttribute('stroke', 'var(--secondary)');
             paths[index].setAttribute('stroke-width', '4');
         }
     }
@@ -343,7 +347,7 @@ function startTimer() {
     firstScreen.classList.add('hide');
     secondScreen.classList.remove('hide');
     const tpl = interpolateTime(internalTempC);
-    totalTimerSeconds = Math.round(tpl * selectedLayers * 60);
+    totalTimerSeconds = Math.round(tpl * selectedLayers * 60) / 20;
 
     disableControls();
 
@@ -364,7 +368,7 @@ function startTimer() {
 
         const fraction = Math.min(elapsed / totalTimerSeconds, 1);
         const offset = circleCircumference - fraction * circleCircumference;
-        circularProgress.style.strokeDashoffset = Math.max(offset.toFixed(2), 20);
+        circularProgress.style.strokeDashoffset = offset.toFixed(2);
 
         circularElapsedTime.textContent = formatTime(Math.floor(elapsed));
 
@@ -378,7 +382,7 @@ function startTimer() {
 
         if (elapsed >= totalTimerSeconds) {
             clearInterval(timerInterval);
-            circularProgress.style.strokeDashoffset = "20";
+            circularProgress.style.strokeDashoffset = "0";
             playFinalSound();
             enableControls();
         }
@@ -415,7 +419,7 @@ function resumeTimer() {
 
         const fraction = Math.min(elapsed / totalTimerSeconds, 1);
         const offset = circleCircumference - fraction * circleCircumference;
-        circularProgress.style.strokeDashoffset = Math.max(offset.toFixed(2), 20);
+        circularProgress.style.strokeDashoffset = offset.toFixed(2);
 
         circularElapsedTime.textContent = formatTime(Math.floor(elapsed));
 
@@ -428,7 +432,7 @@ function resumeTimer() {
 
         if (elapsed >= totalTimerSeconds) {
             clearInterval(timerInterval);
-            circularProgress.style.strokeDashoffset = "20";
+            circularProgress.style.strokeDashoffset = "0";
             playFinalSound();
             enableControls();
         }
@@ -509,6 +513,7 @@ function initWaterBlob() {
 
     function animate() {
         requestAnimationFrame(animate);
+        if (paused) return;
         material.uniforms.time.value += 0.03;
         renderer.render(scene, camera);
     }

@@ -18,6 +18,10 @@
     color: #fff;
 }
 
+.color-secondary {
+    color: var(--secondary);
+}
+
 .text-primary {
     color: var(--primary);
 }
