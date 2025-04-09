@@ -147,8 +147,8 @@ let paused = false;
 let elapsedBeforePause = 0;
 
 /* ---------- Sounds ---------- */
-const layerSound = new Audio('../assets/sounds/layer-sound.mp3');
-const finalSound = new Audio('../assets/sounds/final-sound.mp3');
+const layerSound = new Audio('./assets/sounds/layer-sound.mp3');
+const finalSound = new Audio('./assets/sounds/final-sound.mp3');
 let cleanedLayersCounter = 0
 
 function playLayerSound() {
