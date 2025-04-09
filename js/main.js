@@ -238,7 +238,7 @@ function updateDisplays() {
     } else {
         tempInput.min = toFahrenheit(0);
         tempInput.max = toFahrenheit(40);
-        const displayVal = parseFloat(toFahrenheit(internalTempC).toFixed(1));
+        const displayVal = Math.round(parseFloat(toFahrenheit(internalTempC).toFixed(1)));
         tempInput.value = displayVal;
         tempNumber.value = displayVal;
     }
@@ -259,10 +259,14 @@ tempInput.addEventListener('input', () => {
     const val = parseFloat(tempInput.value || 0.0);
     onTempInputChange(val);
 });
-tempNumber.addEventListener('input', () => {
-    const val = parseFloat(tempNumber.value || 0.0);
-
-    onTempInputChange(val);
+tempNumber.addEventListener('blur', () => {
+    let val = tempNumber.value;
+    // Allow only numbers and '.'
+    val = val.replace(/[^0-9.]/g, '');
+    const parsedVal = parseFloat(val || 0.0);
+    // Format as 00.0
+    tempNumber.value = parsedVal.toFixed(1)
+    onTempInputChange(parsedVal);
 });
 layersTabs.addEventListener('click', (e) => {
     if (e.target.classList.contains('tab')) {
@@ -347,7 +351,7 @@ function startTimer() {
     firstScreen.classList.add('hide');
     secondScreen.classList.remove('hide');
     const tpl = interpolateTime(internalTempC);
-    totalTimerSeconds = Math.round(tpl * selectedLayers * 60) / 20;
+    totalTimerSeconds = Math.round(tpl * selectedLayers * 60);
 
     disableControls();
 
