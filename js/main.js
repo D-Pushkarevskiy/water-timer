@@ -352,6 +352,7 @@ function startTimer() {
     secondScreen.classList.remove('hide');
     const tpl = interpolateTime(internalTempC);
     totalTimerSeconds = Math.round(tpl * selectedLayers * 60);
+    initWaterBlob();
 
     disableControls();
 
@@ -473,6 +474,7 @@ resetButton.addEventListener('click', resetTimer);
 /* ---------- Three.js Water Blob Animation with Shader ---------- */
 function initWaterBlob() {
     const container = document.getElementById('timerBackgroundAnimation');
+    if (container.hasChildNodes('canvas')) return
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(80, container.clientWidth / container.clientHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true });
@@ -532,4 +534,3 @@ updateTranslations();
 updateSlider();
 updateSummary();
 updateCleanedLayers();
-initWaterBlob();
